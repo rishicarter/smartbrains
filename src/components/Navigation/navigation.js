@@ -1,8 +1,7 @@
 const Navigation = () => {
     return(
-        <nav>
-            <p className='pa3 link black underline pointer' 
-            style={{display:'flex', justifyContent:'flex-end'}}>
+        <nav style={{display:'flex', justifyContent:'flex-end'}}>
+            <p className='f3 dim pa3 link black underline pointer'>
                 Sign out!!
             </p>
         </nav>
