@@ -7,9 +7,11 @@ import FaceRecLink from "./components/FaceRecog/FaceRecLink.js";
 import { Component } from 'react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
+import properties from './properties';
+
 
 const app1 = new Clarifai.App({
-    apiKey: 'bdb6fc001b084ea497c013eb4fa0623a'
+    apiKey: properties.API
 });
 
 const particleOptions = {
@@ -23,10 +25,10 @@ const particleOptions = {
     }
   }
 }
-
 class App extends Component{
   constructor(){
-    super();
+    super();   
+    // console.log(properties.API)
     this.state={
       input : '',
       inputUrl : '',
