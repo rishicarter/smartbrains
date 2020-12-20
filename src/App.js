@@ -8,6 +8,8 @@ import { Component } from 'react';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import properties from './properties';
+import Signin from './components/Singin/signin';
+import Register from './components/Register/register';
 
 
 const app1 = new Clarifai.App({
@@ -32,7 +34,9 @@ class App extends Component{
     this.state={
       input : '',
       inputUrl : '',
-      box : ''
+      box : '',
+      route : 'signin',
+      isSignin : false
     }
   }
   faceDetect = (data) => {
@@ -61,17 +65,32 @@ class App extends Component{
       .then(response => this.settingBox(this.faceDetect(response)))
       .catch(err => console.log(err))
   }
+  onRouteChange = (route) => {
+    if (route === 'signout'){
+      this.setState({isSignin : false})
+    }else if (route === 'home'){
+      this.setState({isSignin : true})
+    }
+    this.setState({route : route})
+  }
   render(){
+    const { isSignin, box, inputUrl, route } = this.state;
     return (
       <>
         <Particles className='particles'
           params={particleOptions}
         />   
-        <Navigation />
-        <Logo />
-        <UserDetails />
-        <FormLink onInputChange={this.onInputChange} onSubmitClick={this.onSubmitClick}/>
-        <FaceRecLink box = {this.state.box} inputURL={this.state.inputUrl}/>
+        <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange}/>
+        {route === 'home' ? 
+          <div>
+            <Logo />
+            <UserDetails />
+            <FormLink onInputChange={this.onInputChange} onSubmitClick={this.onSubmitClick}/>
+            <FaceRecLink box = {box} inputURL={inputUrl}/>
+          </div>
+          : (route === 'signin' || route === 'signout') ?<Signin onRouteChange={this.onRouteChange}/>
+          : <Register onRouteChange={this.onRouteChange}/>
+        }
       </>
     );
   };
