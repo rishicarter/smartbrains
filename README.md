@@ -1,3 +1,3 @@
 # Smartbrains
 
-###A face recognition website with REACT js.
+### A face recognition website with REACT js.
